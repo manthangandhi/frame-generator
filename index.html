@@ -17,7 +17,9 @@
       let canvas = document.getElementById("canvas");
       let ctx = canvas.getContext("2d");
       let img = new Image();
+      img.setAttribute('crossOrigin', 'anonymous');
       let frame = new Image();
+      frame.setAttribute('crossOrigin', 'anonymous');
       let downloadButton = document.getElementById("download-button");
 
       img.src = URL.createObjectURL(imageFile);
@@ -39,20 +41,12 @@
       let link = document.createElement('a');
       link.download = "image.png";
       link.href = canvas.toDataURL("image/png");
-link.crossOrigin="anonymous"
+      console.log(canvas)
+      link.crossOrigin="anonymous"
       link.click();
-      
     }
     
-    // function downloadImage() {
-    //   let canvas = document.getElementById("canvas");
-    //   canvas.toBlob(function(blob) {
-    //     let link = document.createElement("a");
-    //     link.href = URL.createObjectURL(blob);
-    //     link.download = "image.png";
-    //     link.click();
-    //   }, "image/png");
-    // }
+   
   </script>
 </body>
 </html>
