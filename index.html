@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Uploader</title>
+</head>
+<body>
+  <form>
+    <input type="file" id="image-file" onchange="previewImage()">
+    <button id="download-button" onclick="downloadImage()" style="display:none;">Download</button>
+  </form>
+  <div id="image-frame">
+    <canvas id="canvas"></canvas>
+  </div>
+  <script>
+    function previewImage() {
+      let imageFile = document.getElementById("image-file").files[0];
+      let canvas = document.getElementById("canvas");
+      let ctx = canvas.getContext("2d");
+      let img = new Image();
+      let frame = new Image();
+      let downloadButton = document.getElementById("download-button");
+
+      img.src = URL.createObjectURL(imageFile);
+      frame.src = "https://i.postimg.cc/rwr231vP/Marathon.png"; // set the source of your frame image
+      
+      img.onload = function() {
+        let width = 200;
+        let ratio = width / img.width;
+        let height = img.height * ratio;
+        canvas.width = 500;
+        canvas.height = 500;
+        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 150, 125, width, height);
+        downloadButton.style.display = "block";
+      }
+    }
+    function downloadImage() {
+      // let canvas = document.getElementById("canvas");
+      // let link = document.createElement('a');
+      // link.download = "image.png";
+      // link.href = canvas.toDataURL("image/png");
+      // link.click();
+      
+       var canvas = document.getElementById("canvas");
+    var img    = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    document.setAttribute("href", img);
+	window.location.href=img;
+    }
+    
+    // function downloadImage() {
+    //   let canvas = document.getElementById("canvas");
+    //   canvas.toBlob(function(blob) {
+    //     let link = document.createElement("a");
+    //     link.href = URL.createObjectURL(blob);
+    //     link.download = "image.png";
+    //     link.click();
+    //   }, "image/png");
+    // }
+  </script>
+</body>
+</html>
